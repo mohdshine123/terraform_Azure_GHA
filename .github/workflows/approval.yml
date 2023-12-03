@@ -26,11 +26,3 @@ jobs:
       - name: Approval gate for apply-dev
         run: |
           echo Approved
-
-  terraform-apply-dev:
-    needs: 
-      - apply-dev-approval
-    uses: ./.github/workflows/tf-apply.yml
-    secrets: inherit
-    with:
-      environment: dev
