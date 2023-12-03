@@ -1,0 +1,33 @@
+name: "Terraform"
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  terraform-plan-dev:
+    uses: ./.github/workflows/tf_plan.yml
+    secrets: inherit
+    with:
+      environment: dev
+  apply-dev-approval:
+    needs:
+      - terraform-plan-dev
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Approval gate for apply-dev
+        run: |
+          echo Approved
+
+  terraform-apply-dev:
+    needs: 
+      - apply-dev-approval
+    uses: ./.github/workflows/tf_apply.yml
+    secrets: inherit
+    with:
+      environment: dev
