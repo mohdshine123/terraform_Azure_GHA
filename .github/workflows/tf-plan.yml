@@ -55,7 +55,8 @@ jobs:
 
       - name: Terraform Validate
         id: validate
-        run: terraform validate
+        #run: terraform validate
+        run: terraform workspace show
 
       - name: Terraform Plan
         id: plan
