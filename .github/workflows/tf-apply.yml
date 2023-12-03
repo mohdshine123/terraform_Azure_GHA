@@ -30,7 +30,8 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.environment }}
-          path: ./plan-${{ inputs.environment }}.out"
+          #path: ./plan-${{ inputs.environment }}.out"
+          path: ./
 
       - name: 'Login to Azure'
         uses: azure/login@v1
