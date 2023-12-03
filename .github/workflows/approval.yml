@@ -18,6 +18,8 @@ jobs:
     needs:
       - terraform-plan-dev
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     environment: dev
     steps:
       - name: Approval gate for apply-dev
