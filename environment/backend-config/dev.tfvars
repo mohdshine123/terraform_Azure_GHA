@@ -1,4 +1,4 @@
-storage_account_name     = "azasstavnnseq02833ewdl"
-resource_group_name      = "AZ-AS-RGP-VN-N-SEQ02833-LOGGING"
-container_name           = "podiumtf"
+storage_account_name     = "shinelabstorage"
+resource_group_name      = "mohdshinelab_rg"
+container_name           = "tfstates "
 key                      = "tfstate"
