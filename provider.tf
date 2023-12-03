@@ -10,14 +10,6 @@ terraform {
 }
 
 provider "azurerm" {
-  #version = "=1.44.0"
-  #tenant_id                   = "${var.service_principal["tenant_id"]}"
-  #subscription_id             = "${var.service_principal["subscription_id"]}"
-  #client_id                   = "${var.service_principal["client_id"]}"
-  # client_secret               = "${var.service_principal["client_secret"]}"
-  #client_certificate_path     = "${var.service_principal["client_certificate_path"]}"
-  #client_certificate_password = "${var.service_principal["client_certificate_password"]}"
- 
   use_oidc = true
   features {}
   skip_provider_registration = true
