@@ -1,5 +1,6 @@
 on:
-  workflow_dispatch:
+  workflow_call:
+  #workflow_dispatch:
     inputs:
       # [dev test ...]
       environment:
