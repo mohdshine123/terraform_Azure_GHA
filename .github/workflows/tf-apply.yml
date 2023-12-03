@@ -1,0 +1,59 @@
+on:
+  workflow_dispatch:
+    inputs:
+      # [dev test ...]
+      environment:
+        description: environment to deploy to
+        required: true
+        type: string
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  #4861a965-dfca-4d0c-bf98-1b754fccc9c3
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  BACKEND_CONF_FILE: "./environments/backend-config/${{ inputs.environment }}.tfvars"
+  TERRAFORM_VERSION: "1.2.9"
+
+jobs:
+  terraform-apply:
+    environment:
+      name: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.environment }}
+          path: ./
+
+      - name: 'Login to Azure'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ env.ARM_CLIENT_ID }}
+          tenant-id: ${{ env.ARM_TENANT_ID }}
+          subscription-id: ${{ env.ARM_SUBSCRIPTION_ID }}
+
+      ## For any issues with INNERSOURCE_IAC_KEY contact r-sreedhar.reddy@shell.com ##
+      - name: Install SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.INNERSOURCE_IAC_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cat ~/.ssh/id_rsa
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config=${{ env.BACKEND_CONF_FILE }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false "plan-${{ inputs.environment }}.out"
