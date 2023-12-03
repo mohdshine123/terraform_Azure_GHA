@@ -12,7 +12,7 @@ env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  #4861a965-dfca-4d0c-bf98-1b754fccc9c3
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  BACKEND_CONF_FILE: "./environments/backend-config/${{ inputs.environment }}.tfvars"
+  BACKEND_CONF_FILE: "./environment/backend-config/${{ inputs.environment }}.tfvars"
   TERRAFORM_VERSION: "1.2.9"
 
 jobs:
