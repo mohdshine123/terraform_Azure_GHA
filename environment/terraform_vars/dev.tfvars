@@ -1,4 +1,7 @@
-storage_account_name     = "azasstavnnseq02833ewdl"
-resource_group_name      = "AZ-AS-RGP-VN-N-SEQ02833-LOGGING"
-container_name           = "podiumtf"
-key                      = "tfstate"
+service_principal = {
+  tenant_id                   = "$tenant_id"
+  subscription_id             = "$subscription_id"
+  client_id                   = "$client_id"
+  client_certificate_path     = "$client_certificate_path"
+  client_certificate_password = "$client_certificate_password"
+}
