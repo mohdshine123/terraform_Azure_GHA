@@ -1,6 +1,6 @@
 name: Run Azure Terraform plan OIDC
 on:
-  workflow_dispatch:
+  #workflow_dispatch:
   workflow_call:
     inputs:
       # [dev test ...]
