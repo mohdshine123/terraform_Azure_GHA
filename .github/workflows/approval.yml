@@ -2,8 +2,7 @@ name: "Terraform"
 
 on:
   push:
-    branches:
-      - '**'
+
   pull_request:
 
   workflow_dispatch:
@@ -18,11 +17,16 @@ jobs:
     needs:
       - terraform-plan-dev
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    environment: dev
+    environment: dev-approval
     steps:
       - name: Approval gate for apply-dev
         run: |
           echo Approved
+
+  terraform-apply-dev:
+    needs: 
+      - apply-dev-approval
+    uses: ./.github/workflows/tf-apply.yml
+    secrets: inherit
+    with:
+      environment: dev
