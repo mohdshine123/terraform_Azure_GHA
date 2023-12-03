@@ -13,7 +13,7 @@ env:
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   BACKEND_CONF_FILE: "./environment/backend-config/${{ inputs.environment }}.tfvars"
   TERRAFORM_VERSION: "1.2.9"
-  TF_VARS_FILE: "./environments/terraform_vars/${{ inputs.environment }}.tfvars"
+  TF_VARS_FILE: "./environment/terraform_vars/${{ inputs.environment }}.tfvars"
 
 jobs:
   terraform-plan:
