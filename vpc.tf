@@ -1,23 +1,23 @@
 locals {
-  resource_group_name = "tfexample"
+  resource_group_name = "my-terraform-rg"
   location            = "Central India"
 }
 
 # Check if the resource group already exists
-data "azurerm_resource_group" "tfexample" {
+data "azurerm_resource_group" "my-terraform-rg" {
   name = local.resource_group_name
 }
 
 
 # Create a Resource Group if it doesn’t exist
-resource "azurerm_resource_group" "tfexample" {
+resource "azurerm_resource_group" "my-terraform-rg {
   count    = data.azurerm_resource_group.tfexample ? 0 : 1
   name     = "my-terraform-rg"
   location = "Central India"
 }
 
 # Create a Virtual Network
-resource "azurerm_virtual_network" "tfexample" {
+resource "azurerm_virtual_network" "my-terraform-vnet" {
   name                = "my-terraform-vnet"
   location            = azurerm_resource_group.tfexample.location
   resource_group_name = azurerm_resource_group.tfexample.name
@@ -25,7 +25,7 @@ resource "azurerm_virtual_network" "tfexample" {
 }
 
 # Create a Subnet in the Virtual Network
-resource "azurerm_subnet" "tfexample" {
+resource "azurerm_subnet" "my-terraform-subnet" {
   name                 = "my-terraform-subnet"
   resource_group_name  = azurerm_resource_group.tfexample.name
   virtual_network_name = azurerm_virtual_network.tfexample.name
