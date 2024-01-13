@@ -10,41 +10,53 @@ data "azurerm_resource_group" "existing_rg" {
   name = local.resource_group_name
 }
 
+# Output the existing resource group information for debugging
+output "existing_rg_info" {
+  value = data.azurerm_resource_group.existing_rg
+}
+
 # Create a Resource Group if it doesn’t exist
 resource "azurerm_resource_group" "my-terraform-rg" {
-  count    = data.azurerm_resource_group.existing_rg ? 0 : 1
-  name     = local.resource_group_name
+  for_each = data.azurerm_resource_group.existing_rg ? {} : { "default" = local.resource_group_name }
+
+  name     = each.value
   location = local.location
+}
+
+# Output the created resource group information for debugging
+output "created_rg_info" {
+  value = azurerm_resource_group.my-terraform-rg
 }
 
 # Check if the virtual network already exists
 data "azurerm_virtual_network" "existing_vnet" {
-  name                = local.virtual_network_name
-  resource_group_name = data.azurerm_resource_group.existing_rg.name
+  for_each            = data.azurerm_resource_group.existing_rg ? {} : { "default" = local.virtual_network_name }
+  name                = each.value
+  resource_group_name = azurerm_resource_group.my-terraform-rg[each.key].name
 }
 
-# Check if the subnet already exists
-data "azurerm_subnet" "existing_subnet" {
-  name                 = local.subnet_name
-  virtual_network_name  = data.azurerm_virtual_network.existing_vnet.name
-  resource_group_name = data.azurerm_resource_group.existing_rg.name
+# Output the existing virtual network information for debugging
+output "existing_vnet_info" {
+  value = data.azurerm_virtual_network.existing_vnet
 }
 
-
+# ... (similar pattern for subnet, virtual network, and subnet creation)
 
 # Create a Virtual Network and Subnet conditionally
 resource "azurerm_virtual_network" "my-terraform-vnet" {
-  count               = length(data.azurerm_virtual_network.existing_vnet) > 0 ? 0 : 1
-  name                = local.virtual_network_name
-  location            = azurerm_resource_group.my-terraform-rg[0].location
-  resource_group_name = azurerm_resource_group.my-terraform-rg[0].name
+  for_each = data.azurerm_virtual_network.existing_vnet ? {} : { "default" = local.virtual_network_name }
+
+  name                = each.value
+  location            = azurerm_resource_group.my-terraform-rg[each.key].location
+  resource_group_name = azurerm_resource_group.my-terraform-rg[each.key].name
   address_space       = ["10.0.0.0/16"]
 }
 
 resource "azurerm_subnet" "my-terraform-subnet" {
-  count                = length(data.azurerm_subnet.existing_subnet) > 0 ? 0 : 1
-  name                 = local.subnet_name
-  resource_group_name  = azurerm_resource_group.my-terraform-rg[0].name
-  virtual_network_name = azurerm_virtual_network.my-terraform-vnet[0].name
+  for_each            = data.azurerm_subnet.existing_subnet ? {} : { "default" = local.subnet_name }
+
+  name                 = each.value
+  resource_group_name  = azurerm_resource_group.my-terraform-rg[each.key].name
+  virtual_network_name = azurerm_virtual_network.my-terraform-vnet[each.key].name
   address_prefixes     = ["10.0.2.0/24"]
 }
