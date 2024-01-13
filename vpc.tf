@@ -10,8 +10,8 @@ data "azurerm_resource_group" "my-terraform-rg" {
 
 
 # Create a Resource Group if it doesn’t exist
-resource "azurerm_resource_group" "my-terraform-rg {
-  count    = data.azurerm_resource_group.tfexample ? 0 : 1
+resource "azurerm_resource_group" "my-terraform-rg" {
+  count    = data.azurerm_resource_group.my-terraform-rg ? 0 : 1
   name     = "my-terraform-rg"
   location = "Central India"
 }
