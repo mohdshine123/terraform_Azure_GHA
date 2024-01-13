@@ -40,9 +40,7 @@ output "existing_vnet_info" {
   value = data.azurerm_virtual_network.existing_vnet
 }
 
-# ... (similar pattern for subnet, virtual network, and subnet creation)
-
-# Create a Virtual Network and Subnet conditionally
+# Create a Virtual Network conditionally
 resource "azurerm_virtual_network" "my-terraform-vnet" {
   for_each = data.azurerm_virtual_network.existing_vnet ? {} : { "default" = local.virtual_network_name }
 
@@ -52,6 +50,25 @@ resource "azurerm_virtual_network" "my-terraform-vnet" {
   address_space       = ["10.0.0.0/16"]
 }
 
+# Output the created virtual network information for debugging
+output "created_vnet_info" {
+  value = azurerm_virtual_network.my-terraform-vnet
+}
+
+# Check if the subnet already exists
+data "azurerm_subnet" "existing_subnet" {
+  for_each            = data.azurerm_virtual_network.existing_vnet ? {} : { "default" = local.subnet_name }
+  name                = each.value
+  resource_group_name = azurerm_resource_group.my-terraform-rg[each.key].name
+  virtual_network_name = azurerm_virtual_network.my-terraform-vnet[each.key].name
+}
+
+# Output the existing subnet information for debugging
+output "existing_subnet_info" {
+  value = data.azurerm_subnet.existing_subnet
+}
+
+# Create a Subnet conditionally
 resource "azurerm_subnet" "my-terraform-subnet" {
   for_each            = data.azurerm_subnet.existing_subnet ? {} : { "default" = local.subnet_name }
 
@@ -59,4 +76,9 @@ resource "azurerm_subnet" "my-terraform-subnet" {
   resource_group_name  = azurerm_resource_group.my-terraform-rg[each.key].name
   virtual_network_name = azurerm_virtual_network.my-terraform-vnet[each.key].name
   address_prefixes     = ["10.0.2.0/24"]
+}
+
+# Output the created subnet information for debugging
+output "created_subnet_info" {
+  value = azurerm_subnet.my-terraform-subnet
 }
