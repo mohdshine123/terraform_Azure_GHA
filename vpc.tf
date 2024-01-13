@@ -1,5 +1,17 @@
+locals {
+  resource_group_name = "tfexample"
+  location            = "Central India"
+}
+
+# Check if the resource group already exists
+data "azurerm_resource_group" "tfexample" {
+  name = local.resource_group_name
+}
+
+
 # Create a Resource Group if it doesn’t exist
 resource "azurerm_resource_group" "tfexample" {
+  count    = data.azurerm_resource_group.tfexample ? 0 : 1
   name     = "my-terraform-rg"
   location = "Central India"
 }
