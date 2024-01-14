@@ -4,4 +4,13 @@ locals {
   subnet_name          = "my-terraform-subnet"
   location             = "Central India"
   env                  = "dev"
+
+common_tags = {
+    environment = "dev"
+    owner       = "team"
+    project     = "my-project"
+  }
+
 }
+
+
