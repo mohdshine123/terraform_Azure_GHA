@@ -72,3 +72,6 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false "plan-${{ inputs.environment }}.out"
+ 
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -input=false "plan-${{ inputs.environment }}.out"
