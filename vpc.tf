@@ -1,19 +1,22 @@
-locals {
-  resource_group_name  = "my-terraform-rg"
-  virtual_network_name = "my-terraform-vnet"
-  subnet_name          = "my-terraform-subnet"
-  location             = "Central India"
+#Azure Generic vNet Module
+resource "azurerm_resource_group" "network" {
+  name     = "${var.resource_group_name}"
+  location = "${var.location}"
 }
 
-# Check if the resource group already exists
-data "azurerm_resource_group" "existing_rg" {
-  name = local.resource_group_name
+resource "azurerm_virtual_network" "vnet" {
+  name                = "${var.vnet_name}"
+  location            = "${var.location}"
+  address_space       = ["${var.address_space}"]
+  resource_group_name = "${azurerm_resource_group.network.name}"
+  dns_servers         = "${var.dns_servers}"
+  tags                = "${var.tags}"
 }
 
-# Create a Resource Group if it doesn’t exist
-resource "azurerm_resource_group" "existing_rg" {
-  
-  name     = local.resource_group_name
-  location = local.location
+resource "azurerm_subnet" "subnet" {
+  name                 = "${var.subnet_names[count.index]}"
+  virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.network.name}"
+  address_prefix       = "${var.subnet_prefixes[count.index]}"
+  count                = "${length(var.subnet_names)}"
 }
-
