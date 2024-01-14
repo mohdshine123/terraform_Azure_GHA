@@ -67,3 +67,7 @@ jobs:
         with:
           name: ${{ inputs.environment }}
           path: ./plan-${{ inputs.environment }}.out
+
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false "plan-${{ inputs.environment }}.out"
