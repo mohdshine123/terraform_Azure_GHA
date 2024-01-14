@@ -39,7 +39,7 @@ variable "subnet_names" {
   #description = "A map of tags to apply to resources."
   #default     = {
     #Environment = "Production",
-    Environment =  "dev",
+    #Environment =  "dev",
     #Owner       = "John Doe",
     #Project     = "MyProject",
   #}
