@@ -1,6 +1,6 @@
 resource "azurerm_storage_account" "this" {
   name                              = "${local.sa_name}"
-  resource_group_name               = "${local.location}-${local.env}-${local.owner}-rg"
+  resource_group_name               = "${local.rgnamedev}"
   location                          = "${local.location}"
   account_tier                      = "Standard"
   account_kind                      = "StorageV2"
