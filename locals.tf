@@ -6,7 +6,7 @@ locals {
   env                  = "dev"
 
 common_tags = {
-    environment = "dev"
+    environment = "staging"
     owner       = "team"
     project     = "my-project"
   }
