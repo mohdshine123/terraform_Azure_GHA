@@ -34,13 +34,13 @@ variable "subnet_names" {
   default     = ["subnet1"]
 }
 
-variable "tags" {
-  type        = map(string)
-  description = "A map of tags to apply to resources."
-  default     = {
+#variable "tags" {
+  #type        = map(string)
+  #description = "A map of tags to apply to resources."
+  #default     = {
     #Environment = "Production",
     Environment =  "dev",
-    Owner       = "John Doe",
-    Project     = "MyProject",
-  }
-}
+    #Owner       = "John Doe",
+    #Project     = "MyProject",
+  #}
+#}
