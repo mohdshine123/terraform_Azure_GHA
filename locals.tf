@@ -3,7 +3,7 @@ locals {
   virtual_network_name = "my-terraform-vnet"
   subnet_name          = "my-terraform-subnet"
   location             = "centralindia"
-  env                  = "dev-test"
+  env                  = "dev-testnew"
 
 common_tags = {
     environment = local.env
