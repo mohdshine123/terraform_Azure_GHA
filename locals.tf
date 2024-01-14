@@ -8,7 +8,6 @@ locals {
   sa_name              = "teststorageforlab"
   container_name       = "testcontainer"
   owner               = "nectmi"
-  owner_short         = "nectmi"
   service             = "infra"
   component           = "nectmi"
   costCentre          = "nectmi"
