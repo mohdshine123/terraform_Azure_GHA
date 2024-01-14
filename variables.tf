@@ -39,7 +39,7 @@ variable "tags" {
   description = "A map of tags to apply to resources."
   default     = {
     #Environment = "Production",
-    Environment = "${local.env}",
+    Environment = "local.env",
     Owner       = "John Doe",
     Project     = "MyProject",
   }
