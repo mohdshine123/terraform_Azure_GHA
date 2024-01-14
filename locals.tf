@@ -7,6 +7,12 @@ locals {
   env                  = "dev-testnew"
   sa_name              = "teststorageforlab"
   container_name       = "testcontainer"
+  owner               = "nectmi"
+  owner_short         = "nectmi"
+  service             = "infra"
+  component           = "nectmi"
+  costCentre          = "nectmi"
+  createdBy           = "terraform"
 
 common_tags = {
     location    = local.location
