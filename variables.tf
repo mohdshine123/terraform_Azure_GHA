@@ -38,7 +38,8 @@ variable "tags" {
   type        = map(string)
   description = "A map of tags to apply to resources."
   default     = {
-    Environment = "Production",
+    #Environment = "Production",
+    Environment = "${local.env}",
     Owner       = "John Doe",
     Project     = "MyProject",
   }
