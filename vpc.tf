@@ -1,7 +1,7 @@
 #Azure Generic vNet Module
 resource "azurerm_resource_group" "network" {
   #name     = "${var.resource_group_name}"
-  name     =   "${local.location}"
+  name     =   "${local.rgnamedev}"
   location = "${var.location}"
 }
 
