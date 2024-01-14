@@ -17,6 +17,6 @@ resource "azurerm_subnet" "subnet" {
   name                 = "${var.subnet_names[count.index]}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   resource_group_name  = "${azurerm_resource_group.network.name}"
-  address_prefixes     = tolist(var.subnet_prefixes)[count.index]
+  address_prefixes     =  "10.0.1.0/24"
   count                = "${length(var.subnet_names)}"
 }
