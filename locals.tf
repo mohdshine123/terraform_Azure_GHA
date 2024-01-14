@@ -5,7 +5,8 @@ locals {
   subnet_name          = "my-terraform-subnet"
   location             = "centralindia"
   env                  = "dev-testnew"
-  sa_name              "teststorageforlab"
+  sa_name              +"teststorageforlab"
+  container_name       "testcontainer"
 
 common_tags = {
     location    = local.location
