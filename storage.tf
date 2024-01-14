@@ -5,9 +5,9 @@ resource "azurerm_storage_account" "this" {
   account_tier                      = "Standard"
   account_kind                      = "StorageV2"
   account_replication_type          = "LRS"
-  enable_blob_encryption            = "true"
-  enable_file_encryption            = "true"
-  enable_advanced_threat_protection = "true"
+  #enable_blob_encryption            = "true"
+  #enable_file_encryption            = "true"
+  #enable_advanced_threat_protection = "true"
   #tags                             = "${module.tag.tags}"
   tags                              = local.common_tags
 }
