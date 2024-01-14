@@ -7,11 +7,16 @@ locals {
   env                  = "dev-testnew"
 
 common_tags = {
+    location    = local.location
     environment = local.env
-    owner       = "team"
-    project     = "my-project"
-  }
-
+    owner       = local.owner
+    service     = local.service
+    component   = local.component
+    costCentre  = local.costCentre
+    taggingVersion = "0.1.0"
+    expiryDate  = "3000-01-01T00:00:00Z"
+    createdBy   = local.createdBy
+}
 }
 
 
