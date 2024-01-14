@@ -3,10 +3,10 @@ locals {
   virtual_network_name = "my-terraform-vnet"
   subnet_name          = "my-terraform-subnet"
   location             = "Central India"
-  env                  = "dev"
+  env                  = "dev=test"
 
 common_tags = {
-    environment = "staging"
+    environment = local.env
     owner       = "team"
     project     = "my-project"
   }
