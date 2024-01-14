@@ -35,11 +35,11 @@ variable "subnet_names" {
 }
 
 variable "tags" {
-  description = "The tags to associate with your network and subnets."
-  type        = "map"
-
-  default = {
-    tag1 = "test"
-    tag2 = "server"
+  type        = map(string)
+  description = "A map of tags to apply to resources."
+  default     = {
+    Environment = "Production",
+    Owner       = "John Doe",
+    Project     = "MyProject",
   }
 }
