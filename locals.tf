@@ -12,6 +12,7 @@ locals {
   component           = "nectmi"
   costCentre          = "nectmi"
   createdBy           = "terraform"
+  ai_frontend_name    = "nectmi"
 
 common_tags = {
     location    = local.location
