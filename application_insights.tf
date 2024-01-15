@@ -1,7 +1,7 @@
 resource "azurerm_application_insights" "insightsfrontend" {
   name                = "${local.ai_frontend_name}"
   location            = "${local.location}"
-  resource_group_name = "${local.location}-${local.env}-${local.owner}-rg"
+  resource_group_name = "${local.rgnamedev}"
   application_type    = "other"
   tags                = local.common_tags
 }
